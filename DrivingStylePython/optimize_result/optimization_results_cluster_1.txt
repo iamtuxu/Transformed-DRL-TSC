@@ -1,0 +1,5 @@
+Optimized parameters for cluster 1:
+v0: 40.0
+d_min: 2.66073789921558
+T: 0.7015642516215077
+Total mean squared error for cluster 1: 736.4896637355899

@@ -1,0 +1,468 @@
+Parameters: [28.035  0.315  1.35 ]
+Total mean squared error: 791.0498795968607
+
+Parameters: [28.035  0.315  1.35 ]
+Total mean squared error: 791.0498795968607
+
+Parameters: [31.15  0.31  1.25]
+Total mean squared error: 776.3102261193137
+
+Parameters: [31.595  0.32   1.   ]
+Total mean squared error: 765.766929129129
+
+Parameters: [32.04   0.335  1.   ]
+Total mean squared error: 765.4031395094312
+
+Parameters: [32.04   0.335  1.   ]
+Total mean squared error: 765.4031395094312
+
+Parameters: [32.04   0.335  1.   ]
+Total mean squared error: 765.4031395094312
+
+Parameters: [31.00166667  0.32416667  1.08333333]
+Total mean squared error: 765.1297263225548
+
+Parameters: [31.64444444  0.32236111  1.07222222]
+Total mean squared error: 765.0403461582692
+
+Parameters: [31.54555556  0.33076389  1.07777778]
+Total mean squared error: 764.9420725541747
+
+Parameters: [31.71861111  0.33038194  1.03888889]
+Total mean squared error: 764.8263546772857
+
+Parameters: [32.27074074  0.33150463  1.04259259]
+Total mean squared error: 764.786111423795
+
+Parameters: [32.04549383  0.33940586  1.03395062]
+Total mean squared error: 764.6897436703664
+
+Parameters: [32.04549383  0.33940586  1.03395062]
+Total mean squared error: 764.6897436703664
+
+Parameters: [32.65759774  0.34241062  1.056893  ]
+Total mean squared error: 764.5405948806952
+
+Parameters: [31.94019547  0.35107124  1.06378601]
+Total mean squared error: 764.3942248670843
+
+Parameters: [33.08611626  0.3683597   1.03837449]
+Total mean squared error: 764.0231723527877
+
+Parameters: [33.08611626  0.3683597   1.03837449]
+Total mean squared error: 764.0231723527877
+
+Parameters: [32.78822874  0.40309821  1.06045953]
+Total mean squared error: 763.3703537273043
+
+Parameters: [35.07106653  0.43780393  1.04334705]
+Total mean squared error: 762.6081039108268
+
+Parameters: [35.07106653  0.43780393  1.04334705]
+Total mean squared error: 762.6081039108268
+
+Parameters: [35.90689129  0.54186878  1.04975995]
+Total mean squared error: 760.8482716220569
+
+Parameters: [39.62132888  0.61116234  0.99489026]
+Total mean squared error: 759.4927751981705
+
+Parameters: [40.          0.71546296  1.04259259]
+Total mean squared error: 758.2541054994758
+
+Parameters: [40.          0.99288623  1.0005487 ]
+Total mean squared error: 753.7306011143988
+
+Parameters: [40.          1.23577396  0.93851166]
+Total mean squared error: 749.2357810149342
+
+Parameters: [40.          1.23577396  0.93851166]
+Total mean squared error: 749.2357810149342
+
+Parameters: [40.          2.1493207   0.84675354]
+Total mean squared error: 740.0486051459413
+
+Parameters: [40.          2.1493207   0.84675354]
+Total mean squared error: 740.0486051459413
+
+Parameters: [40.          2.84682296  0.65105548]
+Total mean squared error: 737.044132220701
+
+Parameters: [40.          2.84682296  0.65105548]
+Total mean squared error: 737.044132220701
+
+Parameters: [40.          2.84682296  0.65105548]
+Total mean squared error: 737.044132220701
+
+Parameters: [40.          2.56639535  0.75233535]
+Total mean squared error: 736.7118871304505
+
+Parameters: [40.          2.56639535  0.75233535]
+Total mean squared error: 736.7118871304505
+
+Parameters: [40.          2.56639535  0.75233535]
+Total mean squared error: 736.7118871304505
+
+Parameters: [40.          2.70851714  0.67903718]
+Total mean squared error: 736.6219185323635
+
+Parameters: [40.          2.71035805  0.68797068]
+Total mean squared error: 736.5617551847997
+
+Parameters: [40.          2.55426187  0.72486642]
+Total mean squared error: 736.5301712377416
+
+Parameters: [40.          2.61205385  0.72481339]
+Total mean squared error: 736.4925296419102
+
+Parameters: [40.          2.61205385  0.72481339]
+Total mean squared error: 736.4925296419102
+
+Parameters: [40.          2.6607379   0.70156425]
+Total mean squared error: 736.4896637355899
+
+Parameters: [40.          2.6607379   0.70156425]
+Total mean squared error: 736.4896637355899
+
+Parameters: [26.7    0.315  1.5  ]
+Total mean squared error: 512.1567130981764
+
+Parameters: [28.2575  0.3175  1.5375]
+Total mean squared error: 512.0657146676396
+
+Parameters: [28.2575  0.3175  1.5375]
+Total mean squared error: 512.0657146676396
+
+Parameters: [27.66416667  0.35083333  1.5125    ]
+Total mean squared error: 511.7471779512487
+
+Parameters: [27.66416667  0.35083333  1.5125    ]
+Total mean squared error: 511.7471779512487
+
+Parameters: [31.10055556  0.36777778  1.51666667]
+Total mean squared error: 511.50365350659337
+
+Parameters: [30.53194444  0.42972222  1.52083333]
+Total mean squared error: 510.8099141922832
+
+Parameters: [30.53194444  0.42972222  1.52083333]
+Total mean squared error: 510.8099141922832
+
+Parameters: [37.55305556  0.51527778  1.47916667]
+Total mean squared error: 509.8136633549405
+
+Parameters: [37.13277778  0.62888889  1.43333333]
+Total mean squared error: 508.7237316901146
+
+Parameters: [40.     0.735  1.5  ]
+Total mean squared error: 507.5955818857203
+
+Parameters: [40.          0.82305556  1.42083333]
+Total mean squared error: 507.2715134214199
+
+Parameters: [40.          0.94268519  1.42361111]
+Total mean squared error: 507.18544081179033
+
+Parameters: [40.          0.93592593  1.45555556]
+Total mean squared error: 507.16627716854896
+
+Parameters: [40.          0.93592593  1.45555556]
+Total mean squared error: 507.16627716854896
+
+Parameters: [40.          0.86092593  1.43472222]
+Total mean squared error: 507.1379720403489
+
+Parameters: [40.          0.8654784   1.45231481]
+Total mean squared error: 507.1099861710359
+
+Parameters: [40.          0.8654784   1.45231481]
+Total mean squared error: 507.1099861710359
+
+Parameters: [40.          0.89900077  1.45219907]
+Total mean squared error: 507.10499519931756
+
+Parameters: [40.          0.89900077  1.45219907]
+Total mean squared error: 507.10499519931756
+
+Parameters: [28.035  0.315  1.35 ]
+Total mean squared error: 101.81448718861606
+
+Parameters: [28.035  0.315  1.35 ]
+Total mean squared error: 101.81448718861606
+
+Parameters: [31.15  0.31  1.25]
+Total mean squared error: 99.57854931059505
+
+Parameters: [31.595  0.32   1.   ]
+Total mean squared error: 97.7510540527889
+
+Parameters: [31.595  0.32   1.   ]
+Total mean squared error: 97.7510540527889
+
+Parameters: [31.595  0.32   1.   ]
+Total mean squared error: 97.7510540527889
+
+Parameters: [31.595  0.32   1.   ]
+Total mean squared error: 97.7510540527889
+
+Parameters: [31.595  0.32   1.   ]
+Total mean squared error: 97.7510540527889
+
+Parameters: [33.07833333  0.29537037  1.01851852]
+Total mean squared error: 96.48779375887716
+
+Parameters: [33.07833333  0.29537037  1.01851852]
+Total mean squared error: 96.48779375887716
+
+Parameters: [31.05111111  0.27141975  1.03765432]
+Total mean squared error: 95.63309339282992
+
+Parameters: [34.36388889  0.23580247  0.92345679]
+Total mean squared error: 94.84356389100175
+
+Parameters: [34.36388889  0.23580247  0.92345679]
+Total mean squared error: 94.84356389100175
+
+Parameters: [32.02351852  0.19347737  1.03497942]
+Total mean squared error: 94.52855749284082
+
+Parameters: [34.69901235  0.16546639  1.01406036]
+Total mean squared error: 94.40834141828485
+
+Parameters: [34.69901235  0.16546639  1.01406036]
+Total mean squared error: 94.40834141828485
+
+Parameters: [34.69901235  0.16546639  1.01406036]
+Total mean squared error: 94.40834141828485
+
+Parameters: [34.69901235  0.16546639  1.01406036]
+Total mean squared error: 94.40834141828485
+
+Parameters: [34.07683642  0.17548697  0.97203361]
+Total mean squared error: 94.3792846172279
+
+Parameters: [34.07683642  0.17548697  0.97203361]
+Total mean squared error: 94.3792846172279
+
+Parameters: [34.07683642  0.17548697  0.97203361]
+Total mean squared error: 94.3792846172279
+
+Parameters: [28.035  0.315  1.35 ]
+Total mean squared error: 213.04601067190183
+
+Parameters: [28.035  0.315  1.35 ]
+Total mean squared error: 213.04601067190183
+
+Parameters: [27.145  0.31   1.25 ]
+Total mean squared error: 209.5602219437637
+
+Parameters: [30.26  0.32  1.  ]
+Total mean squared error: 205.53222671580605
+
+Parameters: [28.48   0.335  1.   ]
+Total mean squared error: 205.40543432990606
+
+Parameters: [28.48   0.335  1.   ]
+Total mean squared error: 205.40543432990606
+
+Parameters: [28.48   0.335  1.   ]
+Total mean squared error: 205.40543432990606
+
+Parameters: [28.48   0.335  1.   ]
+Total mean squared error: 205.40543432990606
+
+Parameters: [28.48   0.335  1.   ]
+Total mean squared error: 205.40543432990606
+
+Parameters: [28.48   0.335  1.   ]
+Total mean squared error: 205.40543432990606
+
+Parameters: [28.48   0.335  1.   ]
+Total mean squared error: 205.40543432990606
+
+Parameters: [26.65536265  0.35035494  0.93441358]
+Total mean squared error: 205.32191227054764
+
+Parameters: [25.15280093  0.35337963  0.96898148]
+Total mean squared error: 205.01508997160087
+
+Parameters: [22.01605453  0.38624486  0.96779835]
+Total mean squared error: 204.36815534830802
+
+Parameters: [16.86421811  0.41997942  0.87119342]
+Total mean squared error: 201.92673359600667
+
+Parameters: [10.72234825  0.45889403  0.93914609]
+Total mean squared error: 194.8621909121063
+
+Parameters: [10.72234825  0.45889403  0.93914609]
+Total mean squared error: 194.8621909121063
+
+Parameters: [10.          0.59641632  0.75785322]
+Total mean squared error: 192.69812853684513
+
+Parameters: [10.          0.59641632  0.75785322]
+Total mean squared error: 192.69812853684513
+
+Parameters: [10.72234825  0.6854944   0.77965821]
+Total mean squared error: 191.16382563743073
+
+Parameters: [10.72234825  0.6854944   0.77965821]
+Total mean squared error: 191.16382563743073
+
+Parameters: [10.24078275  0.91440996  0.46144452]
+Total mean squared error: 188.63591176659708
+
+Parameters: [10.24078275  0.91440996  0.46144452]
+Total mean squared error: 188.63591176659708
+
+Parameters: [10.24078275  0.91440996  0.46144452]
+Total mean squared error: 188.63591176659708
+
+Parameters: [10.24078275  0.91440996  0.46144452]
+Total mean squared error: 188.63591176659708
+
+Parameters: [10.          1.51303825  0.3       ]
+Total mean squared error: 187.81872490637656
+
+Parameters: [10.          1.51303825  0.3       ]
+Total mean squared error: 187.81872490637656
+
+Parameters: [10.          1.51303825  0.3       ]
+Total mean squared error: 187.81872490637656
+
+Parameters: [10.          1.51303825  0.3       ]
+Total mean squared error: 187.81872490637656
+
+Parameters: [10.          2.33534569  0.3       ]
+Total mean squared error: 186.61950270461332
+
+Parameters: [10.          2.33534569  0.3       ]
+Total mean squared error: 186.61950270461332
+
+Parameters: [10.          3.31293382  0.3       ]
+Total mean squared error: 185.78180651652846
+
+Parameters: [10.07134304  3.69516294  0.3       ]
+Total mean squared error: 185.49608122741458
+
+Parameters: [10.07134304  3.69516294  0.3       ]
+Total mean squared error: 185.49608122741458
+
+Parameters: [10.07134304  3.69516294  0.3       ]
+Total mean squared error: 185.49608122741458
+
+Parameters: [10.07134304  3.69516294  0.3       ]
+Total mean squared error: 185.49608122741458
+
+Parameters: [10.07134304  3.69516294  0.3       ]
+Total mean squared error: 185.49608122741458
+
+Parameters: [10.07134304  3.69516294  0.3       ]
+Total mean squared error: 185.49608122741458
+
+Parameters: [10.14119976  4.1054542   0.3       ]
+Total mean squared error: 185.42960879779096
+
+Parameters: [10.20015685  4.06987271  0.3       ]
+Total mean squared error: 185.21762828566884
+
+Parameters: [10.29082196  3.93677837  0.3       ]
+Total mean squared error: 184.95611300277585
+
+Parameters: [10.29082196  3.93677837  0.3       ]
+Total mean squared error: 184.95611300277585
+
+Parameters: [10.55868865  4.1753166   0.3       ]
+Total mean squared error: 184.7124440015346
+
+Parameters: [10.59958978  4.25790654  0.3       ]
+Total mean squared error: 184.70724900264955
+
+Parameters: [10.59958978  4.25790654  0.3       ]
+Total mean squared error: 184.70724900264955
+
+Parameters: [10.59958978  4.25790654  0.3       ]
+Total mean squared error: 184.70724900264955
+
+Parameters: [10.59958978  4.25790654  0.3       ]
+Total mean squared error: 184.70724900264955
+
+Parameters: [10.59958978  4.25790654  0.3       ]
+Total mean squared error: 184.70724900264955
+
+Parameters: [28.035  0.315  1.35 ]
+Total mean squared error: 1619.4591604620412
+
+Parameters: [28.035  0.315  1.35 ]
+Total mean squared error: 1619.4591604620412
+
+Parameters: [31.15  0.31  1.25]
+Total mean squared error: 1601.795601241614
+
+Parameters: [30.40833333  0.31333333  1.16666667]
+Total mean squared error: 1594.2571739214459
+
+Parameters: [31.24888889  0.33055556  1.11111111]
+Total mean squared error: 1592.813007510546
+
+Parameters: [31.24888889  0.33055556  1.11111111]
+Total mean squared error: 1592.813007510546
+
+Parameters: [31.24888889  0.33055556  1.11111111]
+Total mean squared error: 1592.813007510546
+
+Parameters: [31.24888889  0.33055556  1.11111111]
+Total mean squared error: 1592.813007510546
+
+Parameters: [31.24888889  0.33055556  1.11111111]
+Total mean squared error: 1592.813007510546
+
+Parameters: [31.02659236  0.31967193  1.12517718]
+Total mean squared error: 1592.66188278053
+
+Parameters: [31.02659236  0.31967193  1.12517718]
+Total mean squared error: 1592.66188278053
+
+Parameters: [31.8353182   0.32279458  1.09130674]
+Total mean squared error: 1592.6473647368075
+
+Parameters: [31.59757547  0.31462571  1.08926686]
+Total mean squared error: 1592.462333816374
+
+Parameters: [31.56520472  0.31275607  1.11975083]
+Total mean squared error: 1592.434820818879
+
+Parameters: [31.56520472  0.31275607  1.11975083]
+Total mean squared error: 1592.434820818879
+
+Parameters: [31.17074364  0.30759241  1.12313349]
+Total mean squared error: 1592.355459342513
+
+Parameters: [31.47916456  0.31373739  1.10388793]
+Total mean squared error: 1592.3373735409652
+
+Parameters: [31.52248776  0.29768849  1.12148692]
+Total mean squared error: 1592.194261763128
+
+Parameters: [31.04198652  0.29350614  1.10900668]
+Total mean squared error: 1592.009401220258
+
+Parameters: [31.04198652  0.29350614  1.10900668]
+Total mean squared error: 1592.009401220258
+
+Parameters: [31.24716202  0.27752276  1.11629949]
+Total mean squared error: 1592.0032970003626
+
+Parameters: [31.24716202  0.27752276  1.11629949]
+Total mean squared error: 1592.0032970003626
+
+Parameters: [30.68127566  0.27174223  1.11391139]
+Total mean squared error: 1591.9681919157613
+
+Parameters: [30.68127566  0.27174223  1.11391139]
+Total mean squared error: 1591.9681919157613
+
+Parameters: [30.68127566  0.27174223  1.11391139]
+Total mean squared error: 1591.9681919157613
+

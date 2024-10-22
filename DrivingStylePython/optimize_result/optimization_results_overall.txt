@@ -1,0 +1,5 @@
+Optimized parameters for overall:
+v0: 30.681275661336436
+d_min: 0.27174222885189203
+T: 1.1139113936195306
+Total mean squared error for overall: 1591.9681919157613
