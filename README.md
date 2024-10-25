@@ -28,10 +28,6 @@ This experiment showcases the methodology for analyzing driving styles using DRL
 
    - Visualizes the results for reporting and paper publication purposes.  
 
-7. **Reinforcement Learning Plotting: [`RLplot.py`]**  
+**Intelligent Driver Model Simulation: [`IDM.py`]**  
 
-   - This script is aimed at plotting results specific to the reinforcement learning aspect of the study.  
-
-8. **Intelligent Driver Model Simulation: [`IDM.py`]**  
-
-   - Simulates the Intelligent Driver Model, providing insights into driver behavior under various conditions.
+   - Simulates the Intelligent Driver Model.
