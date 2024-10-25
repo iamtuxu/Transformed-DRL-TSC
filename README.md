@@ -54,6 +54,42 @@ For each project, the following components are included:
 - **Weights:**  
   - Stores the weight matrix from the training process, used for evaluating and deploying trained models.  
 
+## Run Code: 
+
+Please install SUMO and Python first.  Then install the required packages and run main.py.
+
+### `main.py` Configuration  
+
+- **Simulation Time**  
+  - `flags.DEFINE_float('simulation_time', 8001, 'time for simulation')`  
+  - Set the duration for the simulation.  
+
+- **Traffic Flow Data**  
+  - `flags.DEFINE_string('route_file', 'nets/2way-single-intersection/train.rou.xml', '')`  
+  - Specify the route file for traffic flow data.  
+
+- **Use GUI**  
+  - `flags.DEFINE_bool('use_gui', False, 'use sumo-gui instead of sumo')`  
+  - Toggle to use `sumo-gui` for a graphical interface instead of the default `sumo`.  
+
+- **Number of Episodes**  
+  - `flags.DEFINE_integer('num_episodes', 201, '')`  
+  - Define the number of episodes for the simulation.  
+
+- **Train or Evaluation Mode**  
+  - `flags.DEFINE_string('mode', 'train', '')`  
+  - Choose between 'train' or 'eval' modes.  
+
+- **Weight Matrix for Evaluation**  
+  - `flags.DEFINE_string('network_file', '', '')`  
+  - Specify the weights file for policy evaluation (use `state2` for proposed and `state0` for conventional).  
+
+### `traffic_signal.py` Configuration  
+
+- **State Option**  
+  - `self.state_option = 2` for the proposed method
+  - 
+  - `self.state_option = 0` for the conventional method
 ## Paper Link  
 - *Real-Time Driving Style Integration in Deep Reinforcement Learning for Traffic Signal Control* (Under Review)  
 
