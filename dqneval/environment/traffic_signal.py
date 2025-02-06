@@ -1,5 +1,7 @@
 import numpy as np
 from gym import spaces
+import math
+from sumo_utils import true_acceleration
 
 
 class TrafficSignal:
@@ -24,6 +26,8 @@ class TrafficSignal:
         self.yellow_phase = None
         self.end_min_time = 0
         self.end_max_time = 0
+        self.accel = 0.73
+        self.decel = 1.67
         self.all_phases = self.sumo.trafficlight.getAllProgramLogics(ts_id)[0].phases
         self.all_green_phases = [phase for phase in self.all_phases if 'y' not in phase.state]
         self.num_green_phases = len(self.all_green_phases)
@@ -35,6 +39,11 @@ class TrafficSignal:
         #     'accel': 'getAccel',
         #     'mingap': 'getMinGap'
         # }
+
+        # IDM Parameters
+        self.delta = 4  # Default value for IDM delta
+        self.iterations = 10  # Number of substeps for iterative updates
+        self.time_step = 1.0  # Simulation time step (s)
         self.observation_space = spaces.Box(
             low=np.zeros(len(self.lanes_id), dtype=np.float32),
             high=np.ones(len(self.lanes_id), dtype=np.float32))
@@ -43,33 +52,46 @@ class TrafficSignal:
         self.dict_lane_veh = None
         self.state_option = 2  ## change here  0 for benchmark  2 for proposed
 
-
     def compute_density(self, den, tau, mingap, maxspeed):
-        # 使用字典来映射不同的计算逻辑
+        """
+        Compute transformed density based on the selected state option.
+        """
         options = {
-            0: lambda: den,
-            2: lambda: [i1 * (1 + (40 - i2) / 400 + i3 / 30 + i4 / 100) / 1.2 for i1, i2, i3, i4 in zip(den, maxspeed, tau, mingap)],
+            0: lambda: den,  # Option 0: 原始密度
+            2: lambda: [i1 * (1 + (40 - i2) / 400 + i3 / 30 + i4 / 100) / 1.2
+                        for i1, i2, i3, i4 in zip(den, maxspeed, tau, mingap)],  # Option 2: Transformed density
         }
         return np.array(options[self.state_option](), dtype=np.float32)
 
     def compute_state(self):
+        """
+        Compute the current state (density) using IDM parameters.
+        """
+        # 获取车道密度
         den = self.get_lanes_density()
-        tau = self.get_lanes_tau()
-        mingap = self.get_lanes_mingap()
-        maxspeed = self.get_lanes_maxspeed()
-        return self.compute_density(den, tau, mingap, maxspeed)
+
+        # 从 IDM 参数中获取 tau, mingap, maxspeed
+        tau_list, mingap_list, maxspeed_list, _ = self.get_idm_parameters()
+
+        # 计算 transformed density
+        return self.compute_density(den, tau_list, mingap_list, maxspeed_list)
 
     def compute_next_state(self):
+        """
+        Compute the next state (density) if the simulation time has reached the update time.
+        """
         current_time = self.sumo.simulation.getTime()
         if current_time >= self.rs_update_time:
+            # 获取车道密度
             den = self.get_lanes_density()
-            tau = self.get_lanes_tau()
-            mingap = self.get_lanes_mingap()
-            maxspeed = self.get_lanes_maxspeed()
-            return self.compute_density(den, tau, mingap, maxspeed)
+
+            # 从 IDM 参数中获取 tau, mingap, maxspeed
+            tau_list, mingap_list, maxspeed_list, _ = self.get_idm_parameters()
+
+            # 计算 transformed density
+            return self.compute_density(den, tau_list, mingap_list, maxspeed_list)
         else:
             return None
-
 
 
     def change_phase(self, new_green_phase):
@@ -179,120 +201,146 @@ class TrafficSignal:
         else:
             return None
 
+    def compute_queue(self):
+        total_queue = 0
+        for lane_id in self.lanes_id:
+            total_queue += self.sumo.lane.getLastStepHaltingNumber(lane_id)
+        return total_queue
+
+
     def get_lanes_density(self):
         vehicle_size_min_gap = 7.5  # 5(vehSize) + 2.5(minGap)
         return [min(1, self.sumo.lane.getLastStepVehicleNumber(lane_id) / (
                     self.lanes_length[lane_id] / vehicle_size_min_gap))
                 for lane_id in self.lanes_id]
 
+    def _rmse_cluster(self, data, v0, d_min, a, b, T):
+        """
+        Compute RMSE for a single trajectory data point using IDM parameters.
+        :param data: A single trajectory data point (list)
+                     [ego_speed, pred_speed, gap_to_pred, ego_acceleration, leader_flag]
+        :param v0: Desired maximum speed (m/s)
+        :param d_min: Minimum gap (m)
+        :param a: Maximum acceleration (m/s^2)
+        :param b: Comfortable deceleration (m/s^2)
+        :param T: Desired time headway (s)
+        :return: RMSE value for the data point
+        """
+        # Extract data
+        ego_speed = data[0]  # Ego vehicle speed
+        pred_speed = data[1]  # Preceding vehicle speed
+        gap_to_pred = data[2]  # Gap to preceding vehicle
+        ego_acc = data[3]  # Ego vehicle's actual acceleration (from SUMO/TRACI)
+        leader_flag = data[4]  # Whether there is a preceding vehicle (1 for yes, 0 for no)
+
+        # Set IDM parameters
+        self.max_speed = v0
+        self.min_gap = d_min
+        self.headway_time = T
+
+        acc = self.idm(ego_speed, pred_speed, gap_to_pred, self.max_speed, self.min_gap
+                           , self.accel, self.decel, self.headway_time, leader_flag)
+
+        # Compute RMSE for the acceleration
+        return (acc - ego_acc) ** 2
+
+    def idm(self, v, v_l, d, v0, d_min, a, b, T, leader_flag):
+        """
+        Intelligent Driver Model (IDM) function.
+        Parameters:
+        v : float
+            Current speed of the vehicle.
+        v0 : float
+            Desired speed of the vehicle.
+        vl : float
+            speed of the leader vehicle.
+        d : float
+            Gap to the vehicle in front.
+        a : float
+            Maximum acceleration.
+        b : float
+            Comfortable deceleration.
+        T : float
+            Desired time headway.
+        delta : float
+            Acceleration exponent.
+
+        Returns:
+        float
+            Calculated acceleration based on IDM.
+        """
+
+        if leader_flag == 1:
+            d = max(d, 0.1)
+            d_star = d_min + max(0, v * T - (v * (v_l - v)) / (2 * np.sqrt(a * b)))
+            acc = max(a * (1 - (v / v0) ** 4 - (d_star / d) ** 2), -4)
+        else:
+            acc = max(a * (1 - (v / v0) ** 4), -4)
+        return acc
 
 
-    def get_lanes_maxspeed(self):
-        lanes_maxspeed = []
+    def get_idm_parameters(self):
+        """
+        Dynamically compute IDM parameters (v0, d_min, a, b, T) using Method 3 and SUMO trajectory data.
+        """
+        tau_list, mingap_list, maxspeed_list, acc_list = [], [], [], []
+
         for lane_id in self.lanes_id:
             vehicles = self.sumo.lane.getLastStepVehicleIDs(lane_id)
-            total_maxspeed = sum(self.sumo.vehicle.getMaxSpeed(vehicle_id) for vehicle_id in vehicles)
-            num_vehicles = len(vehicles)
-            average_maxspeed = total_maxspeed / num_vehicles if num_vehicles > 0 else 30.7
-            lanes_maxspeed.append(average_maxspeed)
-        return lanes_maxspeed
+            if len(vehicles) == 0:
+                # If there are no vehicles on the lane, use default values
+                tau_list.append(1.0)
+                mingap_list.append(2.5)
+                maxspeed_list.append(30.7)
+                acc_list.append(2.6)
+                continue
 
-    def get_lanes_acc(self):
-        lanes_acc = []
-        for lane_id in self.lanes_id:
-            vehicles = self.sumo.lane.getLastStepVehicleIDs(lane_id)
-            total_acc = sum(self.sumo.vehicle.getAccel(vehicle_id) for vehicle_id in vehicles)
-            num_vehicles = len(vehicles)
-            average_acc = total_acc / num_vehicles if num_vehicles > 0 else 2.6
-            lanes_acc.append(average_acc)
-        return lanes_acc
+            # Store parameters for all vehicles on the lane
+            lane_tau, lane_mingap, lane_maxspeed, lane_acc = [], [], [], []
 
-    def get_lanes_mingap(self):
-        lanes_mingap = []
-        for lane_id in self.lanes_id:
-            vehicles = self.sumo.lane.getLastStepVehicleIDs(lane_id)
-            total_mingap = sum(self.sumo.vehicle.getMinGap(vehicle_id) for vehicle_id in vehicles)
-            num_vehicles = len(vehicles)
-            average_mingap = total_mingap / num_vehicles if num_vehicles > 0 else 0
-            lanes_mingap.append(average_mingap)
-        return lanes_mingap
+            for vehicle_id in vehicles:
+                # Get vehicle information
+                ego_v = self.sumo.vehicle.getSpeed(vehicle_id)  # Ego vehicle speed
+                leader_info = self.sumo.vehicle.getLeader(vehicle_id)  # Preceding vehicle info (ID and distance)
+                ego_a = self.sumo.vehicle.getAcceleration(vehicle_id)
+                if leader_info is not None and leader_info[0] != "":  # If there is a preceding vehicle
+                    leader_id = leader_info[0]  # Preceding vehicle ID
+                    leader_v = self.sumo.vehicle.getSpeed(leader_id)  # Preceding vehicle speed
+                    gap = leader_info[1]  # Distance to preceding vehicle (including minGap)
+                    trajectory_data = [ego_v, leader_v, gap, ego_a, 1]
+                else:  # If there is no preceding vehicle
+                    trajectory_data = [ego_v, None, None, ego_a, 0]
 
-    def get_lanes_tau(self):
-        lanes_tau = []
-        for lane_id in self.lanes_id:
-            vehicles = self.sumo.lane.getLastStepVehicleIDs(lane_id)
-            total_tau = sum(self.sumo.vehicle.getTau(vehicle_id) for vehicle_id in vehicles)
-            num_vehicles = len(vehicles)
-            average_tau = total_tau / num_vehicles if num_vehicles > 0 else 0
-            lanes_tau.append(average_tau)
-        return lanes_tau
+                ########### use 5fast.py here to identify driving clusters
+                # Prototype IDM parameters
+                params_prototype = [
+                    [34.1, 0.18, 0.73, 1.67, 0.97],
+                    [40.0, 2.66, 0.73, 1.67, 0.70],
+                    [40.0, 0.90, 0.73, 1.67, 1.45],
+                    [10.6, 4.26, 0.73, 1.67, 0.30]
+                ]
 
-    def compute_queue(self):
-        total_queue = 0
-        for lane_id in self.lanes_id:
-            total_queue += self.sumo.lane.getLastStepHaltingNumber(lane_id)
-        return total_queue
-    #
-    #
-    # def get_lanes_tau(self):
-    #     lanes_tau = []
-    #     for lane_id in self.lanes_id:
-    #         vehicles = self.sumo.lane.getLastStepVehicleIDs(lane_id)
-    #         total_tau = 0.0
-    #         num_vehicles = len(vehicles)
-    #
-    #         for vehicle_id in vehicles:
-    #             tau = self.sumo.vehicle.getTau(vehicle_id)      #getTau  getMinGap getAccel
-    #             total_tau += tau
-    #
-    #         if num_vehicles > 0:
-    #             average_tau = total_tau / num_vehicles
-    #         else:
-    #             average_tau = 1.0
-    #         lanes_tau.append(average_tau)
-    #     return lanes_tau
-    #
-    #
-    # def get_lanes_acc(self):
-    #     lanes_acc = []  #  2.5 2
-    #     for lane_id in self.lanes_id:
-    #         vehicles = self.sumo.lane.getLastStepVehicleIDs(lane_id)
-    #         total_acc = 0.0
-    #         num_vehicles = len(vehicles)
-    #
-    #         for vehicle_id in vehicles:
-    #             acc = self.sumo.vehicle.getAccel(vehicle_id)          #getTau  getMinGap getAccel
-    #             total_acc += acc
-    #
-    #         if num_vehicles > 0:
-    #             average_acc = total_acc / num_vehicles
-    #         else:
-    #             average_acc = 2.6
-    #         lanes_acc.append(average_acc)
-    #     return lanes_acc
+                # Find the best IDM parameters for the vehicle
+                min_rmse = float('inf')
+                best_params = None
+                for params in params_prototype:
+                    v0, d_min, a, b, T = params
+                    current_rmse = self._rmse_cluster(trajectory_data, v0, d_min, a, b, T)
+                    if current_rmse < min_rmse:
+                        min_rmse = current_rmse
+                        best_params = params
 
+                # Extract the best parameters
+                v0, d_min, a, b, T = best_params
+                lane_tau.append(T)  # T is reaction time (tau)
+                lane_mingap.append(d_min)  # d_min is minimum gap
+                lane_maxspeed.append(v0)  # v0 is maximum speed
+                lane_acc.append(a)  # a is maximum acceleration
 
+            # Take the average of all vehicle parameters on the lane
+            tau_list.append(np.mean(lane_tau))
+            mingap_list.append(np.mean(lane_mingap))
+            maxspeed_list.append(np.mean(lane_maxspeed))
+            acc_list.append(np.mean(lane_acc))
 
-
-    # def get_lane_average_attribute(self, attribute, default_value):
-    #     method_name = self.attribute_to_method[attribute]
-    #     lane_averages = []
-    #     for lane_id in self.lanes_id:
-    #         vehicles = self.sumo.lane.getLastStepVehicleIDs(lane_id)
-    #         total_value = sum(getattr(self.sumo.vehicle, method_name)(vehicle_id) for vehicle_id in vehicles)
-    #         num_vehicles = len(vehicles)
-    #         average_value = total_value / num_vehicles if num_vehicles > 0 else default_value
-    #         lane_averages.append(average_value)
-    #     return lane_averages
-    #
-    # def get_lanes_maxspeed(self):
-    #     return self.get_lane_average_attribute('maxspeed', 40)
-    #
-    # def get_lanes_tau(self):
-    #     return self.get_lane_average_attribute('tau', 0)
-    #
-    # def get_lanes_acc(self):
-    #     return self.get_lane_average_attribute('accel', 2.6)
-    #
-    # def get_lanes_mingap(self):
-    #     return self.get_lane_average_attribute('mingap', 0)
+        return tau_list, mingap_list, maxspeed_list, acc_list

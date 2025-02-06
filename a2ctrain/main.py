@@ -12,14 +12,14 @@ from torch.distributions import Categorical
 
 FLAGS = flags.FLAGS
 flags.DEFINE_integer('skip_range', 10, 'time(seconds) range for skip randomly at the beginning')
-flags.DEFINE_float('simulation_time', 8001, 'time for simulation')
+flags.DEFINE_float('simulation_time', 4001, 'time for simulation')
 flags.DEFINE_integer('yellow_time', 2, 'time for yellow phase')
 flags.DEFINE_integer('delta_rs_update_time', 10, 'time for calculate reward')
 flags.DEFINE_string('reward_fn', 'choose-min-waiting-time', '')
 flags.DEFINE_string('net_file', 'nets/2way-single-intersection/single-intersection.net.xml', '')
 flags.DEFINE_string('route_file', 'nets/2way-single-intersection/train.rou.xml', '')
 flags.DEFINE_bool('use_gui', False, 'use sumo-gui instead of sumo')
-flags.DEFINE_integer('num_episodes', 201, '')
+flags.DEFINE_integer('num_episodes', 401, '')
 # flags.DEFINE_string('network', 'policy_gradient', '')  # Update network type
 flags.DEFINE_string('mode', 'train', '')  # train or eval
 flags.DEFINE_string('network_file', '', '')  # Weights file for policy
@@ -28,7 +28,7 @@ flags.DEFINE_bool('use_sgd', True, 'Training with the optimizer SGD or RMSprop')
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-# Set random seeds for reproducibility
+
 random_seed = 42
 random.seed(random_seed)
 np.random.seed(random_seed)
@@ -80,7 +80,6 @@ def main(argv):
             if info['do_action'] is None or reward is None:
                 continue
 
-            # 获取info['do_action']对应的日志概率
             do_action = torch.tensor(info['do_action'], device=device)
             actual_log_prob = Categorical(action_probs).log_prob(do_action)
 
@@ -96,20 +95,16 @@ def main(argv):
         episode_duration = episode_end_time - episode_start_time  # Duration of the episode
         print(f'Episode: {episode}, Avg Queue Length: {env.avg_queue[-1]}, Duration: {episode_duration:.2f}s')
 
-        # 每25个回合存储一次权重和绘制队列图
-        if FLAGS.mode == 'train' and episode != 0 and episode % 25 == 0:
-            # 保存模型权重
-            torch.save(agent.policy_network.state_dict(), f'weights/weights_{episode}.pth')
-            print(f'权重已保存到 weights/weights_{episode}.pth')
 
-            # 绘制平均队列长度图
+        if FLAGS.mode == 'train' and episode != 0 and episode % 25 == 0:
+            torch.save(agent.policy_network.state_dict(), f'weights/weights_{episode}.pth')
+            print(f'save weights weights/weights_{episode}.pth')
             plot_average_queue(env.avg_queue, episode, current_date)
             print(env.avg_queue)
 
-        # 记录平均队列长度
-        if FLAGS.mode == 'train' and episode != 0:
             with open("record/avg_queue.txt", "w") as file:
                 file.write(','.join(map(str, env.avg_queue)))
+
 
 if __name__ == '__main__':
     app.run(main)

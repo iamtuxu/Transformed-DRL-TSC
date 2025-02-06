@@ -17,19 +17,19 @@ flags.DEFINE_integer('yellow_time', 2, 'time for yellow phase')
 flags.DEFINE_integer('delta_rs_update_time', 10, 'time for calculate reward')
 flags.DEFINE_string('reward_fn', 'choose-min-waiting-time', '')
 flags.DEFINE_string('net_file', 'nets/2way-single-intersection/single-intersection.net.xml', '')
-flags.DEFINE_string('route_file', 'nets/2way-single-intersection/eval2.rou.xml', '')
-flags.DEFINE_bool('use_gui', False, 'use sumo-gui instead of sumo')
+flags.DEFINE_string('route_file', 'nets/2way-single-intersection/eval4.rou.xml', '')
+flags.DEFINE_bool('use_gui', True, 'use sumo-gui instead of sumo')
 flags.DEFINE_integer('num_episodes', 10, '')
 flags.DEFINE_string('network', 'policy_gradient', '')  # Update network type
 flags.DEFINE_string('mode', 'eval', '')  # train or eval
-flags.DEFINE_string('network_file', 'weights/state0.pth', '')  # Weights file for policy
+flags.DEFINE_string('network_file', 'weights/state2.pth', '')  # Weights file for policy
 flags.DEFINE_float('gamma', 0.95, '')
 flags.DEFINE_bool('use_sgd', True, 'Training with the optimizer SGD or RMSprop')
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 # Set random seeds for reproducibility
-random_seed = 42
+random_seed = 40
 random.seed(random_seed)
 np.random.seed(random_seed)
 torch.manual_seed(random_seed)
@@ -95,7 +95,7 @@ def main(argv):
         env.close()
 
         print(f'Episode: {episode}, Avg Queue Length: {env.avg_queue[-1]}')
-        print(f'Episode {episode} CO2 emissions: {env.total_co2_emission} grams')
+
 
         # 每25个回合存储一次权重和绘制队列图
         if FLAGS.mode == 'train' and episode != 0 and episode % 25 == 0:

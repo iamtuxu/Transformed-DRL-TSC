@@ -25,7 +25,7 @@ flags.DEFINE_float('eps_start', 1.0, '')
 flags.DEFINE_float('eps_end', 0.1, '')
 flags.DEFINE_integer('eps_decay', 83000, '')
 flags.DEFINE_integer('target_update', 3000, '')
-flags.DEFINE_string('network_file', 'weights/initial.pth', '')
+flags.DEFINE_string('network_file', '', '')
 flags.DEFINE_float('gamma', 0.95, '')
 flags.DEFINE_integer('batch_size', 32, '')
 flags.DEFINE_bool('use_sgd', True, 'Training with the optimizer SGD or RMSprop')
@@ -83,7 +83,7 @@ def main(argv):
 
         env.close()
         if FLAGS.mode == 'train':
-            if episode != 0 and episode % 100 == 0:
+            if episode != 0 and episode % 25 == 0:
                 torch.save(agent.policy_net.state_dict(), 'weights/weights_{0}_{1}.pth'.format(current_date, episode))
 
         print('i_episode:', episode)

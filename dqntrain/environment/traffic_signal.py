@@ -29,12 +29,6 @@ class TrafficSignal:
         self.num_green_phases = len(self.all_green_phases)
         self.lanes_id = list(dict.fromkeys(self.sumo.trafficlight.getControlledLanes(self.ts_id)))
         self.lanes_length = {lane_id: self.sumo.lane.getLength(lane_id) for lane_id in self.lanes_id}
-        # self.attribute_to_method = {
-        #     'maxspeed': 'getMaxSpeed',
-        #     'tau': 'getTau',
-        #     'accel': 'getAccel',
-        #     'mingap': 'getMinGap'
-        # }
         self.observation_space = spaces.Box(
             low=np.zeros(len(self.lanes_id), dtype=np.float32),
             high=np.ones(len(self.lanes_id), dtype=np.float32))
@@ -45,9 +39,8 @@ class TrafficSignal:
 
 
     def compute_density(self, den, tau, mingap, maxspeed):
-        # 使用字典来映射不同的计算逻辑
         options = {
-            0: lambda: den,
+            0: lambda: den, ### original
             2: lambda: [i1 * (1 + (40 - i2) / 400 + i3 / 30 + i4 / 100) / 1.2 for i1, i2, i3, i4 in zip(den, maxspeed, tau, mingap)],
         }
         return np.array(options[self.state_option](), dtype=np.float32)
@@ -234,65 +227,3 @@ class TrafficSignal:
         return total_queue
     #
     #
-    # def get_lanes_tau(self):
-    #     lanes_tau = []
-    #     for lane_id in self.lanes_id:
-    #         vehicles = self.sumo.lane.getLastStepVehicleIDs(lane_id)
-    #         total_tau = 0.0
-    #         num_vehicles = len(vehicles)
-    #
-    #         for vehicle_id in vehicles:
-    #             tau = self.sumo.vehicle.getTau(vehicle_id)      #getTau  getMinGap getAccel
-    #             total_tau += tau
-    #
-    #         if num_vehicles > 0:
-    #             average_tau = total_tau / num_vehicles
-    #         else:
-    #             average_tau = 1.0
-    #         lanes_tau.append(average_tau)
-    #     return lanes_tau
-    #
-    #
-    # def get_lanes_acc(self):
-    #     lanes_acc = []  #  2.5 2
-    #     for lane_id in self.lanes_id:
-    #         vehicles = self.sumo.lane.getLastStepVehicleIDs(lane_id)
-    #         total_acc = 0.0
-    #         num_vehicles = len(vehicles)
-    #
-    #         for vehicle_id in vehicles:
-    #             acc = self.sumo.vehicle.getAccel(vehicle_id)          #getTau  getMinGap getAccel
-    #             total_acc += acc
-    #
-    #         if num_vehicles > 0:
-    #             average_acc = total_acc / num_vehicles
-    #         else:
-    #             average_acc = 2.6
-    #         lanes_acc.append(average_acc)
-    #     return lanes_acc
-
-
-
-
-    # def get_lane_average_attribute(self, attribute, default_value):
-    #     method_name = self.attribute_to_method[attribute]
-    #     lane_averages = []
-    #     for lane_id in self.lanes_id:
-    #         vehicles = self.sumo.lane.getLastStepVehicleIDs(lane_id)
-    #         total_value = sum(getattr(self.sumo.vehicle, method_name)(vehicle_id) for vehicle_id in vehicles)
-    #         num_vehicles = len(vehicles)
-    #         average_value = total_value / num_vehicles if num_vehicles > 0 else default_value
-    #         lane_averages.append(average_value)
-    #     return lane_averages
-    #
-    # def get_lanes_maxspeed(self):
-    #     return self.get_lane_average_attribute('maxspeed', 40)
-    #
-    # def get_lanes_tau(self):
-    #     return self.get_lane_average_attribute('tau', 0)
-    #
-    # def get_lanes_acc(self):
-    #     return self.get_lane_average_attribute('accel', 2.6)
-    #
-    # def get_lanes_mingap(self):
-    #     return self.get_lane_average_attribute('mingap', 0)

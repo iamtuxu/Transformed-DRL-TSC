@@ -1,5 +1,6 @@
 import numpy as np
 from gym import spaces
+import random
 
 
 class TrafficSignal:
@@ -29,12 +30,6 @@ class TrafficSignal:
         self.num_green_phases = len(self.all_green_phases)
         self.lanes_id = list(dict.fromkeys(self.sumo.trafficlight.getControlledLanes(self.ts_id)))
         self.lanes_length = {lane_id: self.sumo.lane.getLength(lane_id) for lane_id in self.lanes_id}
-        # self.attribute_to_method = {
-        #     'maxspeed': 'getMaxSpeed',
-        #     'tau': 'getTau',
-        #     'accel': 'getAccel',
-        #     'mingap': 'getMinGap'
-        # }
         self.observation_space = spaces.Box(
             low=np.zeros(len(self.lanes_id), dtype=np.float32),
             high=np.ones(len(self.lanes_id), dtype=np.float32))
@@ -45,7 +40,6 @@ class TrafficSignal:
 
 
     def compute_density(self, den, tau, mingap, maxspeed):
-        # 使用字典来映射不同的计算逻辑
         options = {
             0: lambda: den,
             2: lambda: [i1 * (1 + (40 - i2) / 400 + i3 / 30 + i4 / 100) / 1.2 for i1, i2, i3, i4 in zip(den, maxspeed, tau, mingap)],
@@ -100,8 +94,24 @@ class TrafficSignal:
                     if current_time < self.end_max_time:
                         do_action = self.green_phase
                     else:
-                        # current phase has reached the max operation time, have to find another green_phase instead
-                        do_action = None
+                        other_phases = [phase for phase in self.all_green_phases if
+                                        phase.state != new_green_phase.state]
+                        if other_phases:
+                            new_green_phase = random.choice(other_phases)
+                            yellow_state = ''
+                            for s in range(len(new_green_phase.state)):
+                                if self.green_phase.state[s] == 'G' and new_green_phase.state[s] == 'r':
+                                    yellow_state += 'y'
+                                else:
+                                    yellow_state += self.green_phase.state[s]
+                            self.yellow_phase = self.sumo.trafficlight.Phase(self.yellow_time, yellow_state)
+                            self.sumo.trafficlight.setRedYellowGreenState(self.ts_id, self.yellow_phase.state)
+                            self.green_phase = new_green_phase
+                            self.rs_update_time = current_time + self.yellow_time + self.delta_rs_update_time
+                            self.update_end_time()
+                            do_action = self.yellow_phase
+                        else:
+                            do_action = None
                 else:
                     # need to set a new plan(yellow + new_green)
                     yellow_state = ''
@@ -234,65 +244,3 @@ class TrafficSignal:
         return total_queue
     #
     #
-    # def get_lanes_tau(self):
-    #     lanes_tau = []
-    #     for lane_id in self.lanes_id:
-    #         vehicles = self.sumo.lane.getLastStepVehicleIDs(lane_id)
-    #         total_tau = 0.0
-    #         num_vehicles = len(vehicles)
-    #
-    #         for vehicle_id in vehicles:
-    #             tau = self.sumo.vehicle.getTau(vehicle_id)      #getTau  getMinGap getAccel
-    #             total_tau += tau
-    #
-    #         if num_vehicles > 0:
-    #             average_tau = total_tau / num_vehicles
-    #         else:
-    #             average_tau = 1.0
-    #         lanes_tau.append(average_tau)
-    #     return lanes_tau
-    #
-    #
-    # def get_lanes_acc(self):
-    #     lanes_acc = []  #  2.5 2
-    #     for lane_id in self.lanes_id:
-    #         vehicles = self.sumo.lane.getLastStepVehicleIDs(lane_id)
-    #         total_acc = 0.0
-    #         num_vehicles = len(vehicles)
-    #
-    #         for vehicle_id in vehicles:
-    #             acc = self.sumo.vehicle.getAccel(vehicle_id)          #getTau  getMinGap getAccel
-    #             total_acc += acc
-    #
-    #         if num_vehicles > 0:
-    #             average_acc = total_acc / num_vehicles
-    #         else:
-    #             average_acc = 2.6
-    #         lanes_acc.append(average_acc)
-    #     return lanes_acc
-
-
-
-
-    # def get_lane_average_attribute(self, attribute, default_value):
-    #     method_name = self.attribute_to_method[attribute]
-    #     lane_averages = []
-    #     for lane_id in self.lanes_id:
-    #         vehicles = self.sumo.lane.getLastStepVehicleIDs(lane_id)
-    #         total_value = sum(getattr(self.sumo.vehicle, method_name)(vehicle_id) for vehicle_id in vehicles)
-    #         num_vehicles = len(vehicles)
-    #         average_value = total_value / num_vehicles if num_vehicles > 0 else default_value
-    #         lane_averages.append(average_value)
-    #     return lane_averages
-    #
-    # def get_lanes_maxspeed(self):
-    #     return self.get_lane_average_attribute('maxspeed', 40)
-    #
-    # def get_lanes_tau(self):
-    #     return self.get_lane_average_attribute('tau', 0)
-    #
-    # def get_lanes_acc(self):
-    #     return self.get_lane_average_attribute('accel', 2.6)
-    #
-    # def get_lanes_mingap(self):
-    #     return self.get_lane_average_attribute('mingap', 0)
