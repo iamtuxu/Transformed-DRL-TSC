@@ -1,0 +1,115 @@
+<?xml version="1.0" ?>
+<routes>
+  <route id="route_ns" edges="n_t t_s"/>
+  <route id="route_nw" edges="n_t t_w"/>
+  <route id="route_ne" edges="n_t t_e"/>
+  <route id="route_we" edges="w_t t_e"/>
+  <route id="route_wn" edges="w_t t_n"/>
+  <route id="route_ws" edges="w_t t_s"/>
+  <route id="route_ew" edges="e_t t_w"/>
+  <route id="route_en" edges="e_t t_n"/>
+  <route id="route_es" edges="e_t t_s"/>
+  <route id="route_sn" edges="s_t t_n"/>
+  <route id="route_se" edges="s_t t_e"/>
+  <route id="route_sw" edges="s_t t_w"/>
+  <vType id="customCar1" vClass="passenger" tau="0.97" accel="0.73" decel="1.67" sigma="0.5" length="5.0" minGap="0.18" maxSpeed="34.1" carFollowModel="IDM" speedFactor="1.0" speedDev="0.1" color="255,1,0"/>
+  <vType id="customCar2" vClass="passenger" tau="0.7" accel="0.73" decel="1.67" sigma="0.5" length="5.0" minGap="2.66" maxSpeed="40.0" carFollowModel="IDM" speedFactor="1.0" speedDev="0.1" color="0,255,255"/>
+  <vType id="customCar3" vClass="passenger" tau="1.45" accel="0.73" decel="1.67" sigma="0.5" length="5.0" minGap="0.9" maxSpeed="40.0" carFollowModel="IDM" speedFactor="1.0" speedDev="0.1" color="0,0,255"/>
+  <vType id="customCar4" vClass="passenger" tau="0.3" accel="0.73" decel="1.67" sigma="0.5" length="5.0" minGap="4.26" maxSpeed="10.0" carFollowModel="IDM" speedFactor="1.0" speedDev="0.1"/>
+  <flow id="flow_ns_customCar1_0" route="route_ns" begin="0" end="1000" vehsPerHour="275" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_sn_customCar1_0" route="route_sn" begin="0" end="1000" vehsPerHour="275" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_nw_customCar1_0" route="route_nw" begin="0" end="1000" vehsPerHour="275" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_se_customCar1_0" route="route_se" begin="0" end="1000" vehsPerHour="275" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_ne_customCar1_0" route="route_ne" begin="0" end="1000" vehsPerHour="137" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_sw_customCar1_0" route="route_sw" begin="0" end="1000" vehsPerHour="137" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_we_customCar1_0" route="route_we" begin="0" end="1000" vehsPerHour="55" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_ws_customCar1_0" route="route_ws" begin="0" end="1000" vehsPerHour="55" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_ew_customCar1_0" route="route_ew" begin="0" end="1000" vehsPerHour="55" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_en_customCar1_0" route="route_en" begin="0" end="1000" vehsPerHour="55" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_wn_customCar1_0" route="route_wn" begin="0" end="1000" vehsPerHour="27" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_es_customCar1_0" route="route_es" begin="0" end="1000" vehsPerHour="27" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_ns_customCar2_1000" route="route_ns" begin="1000" end="2000" vehsPerHour="15" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_sn_customCar2_1000" route="route_sn" begin="1000" end="2000" vehsPerHour="15" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_nw_customCar2_1000" route="route_nw" begin="1000" end="2000" vehsPerHour="15" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_se_customCar2_1000" route="route_se" begin="1000" end="2000" vehsPerHour="15" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_ne_customCar2_1000" route="route_ne" begin="1000" end="2000" vehsPerHour="7" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_sw_customCar2_1000" route="route_sw" begin="1000" end="2000" vehsPerHour="7" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_we_customCar2_1000" route="route_we" begin="1000" end="2000" vehsPerHour="75" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_ws_customCar2_1000" route="route_ws" begin="1000" end="2000" vehsPerHour="75" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_ew_customCar2_1000" route="route_ew" begin="1000" end="2000" vehsPerHour="75" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_en_customCar2_1000" route="route_en" begin="1000" end="2000" vehsPerHour="75" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_wn_customCar2_1000" route="route_wn" begin="1000" end="2000" vehsPerHour="37" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_es_customCar2_1000" route="route_es" begin="1000" end="2000" vehsPerHour="37" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_ns_customCar3_1000" route="route_ns" begin="1000" end="2000" vehsPerHour="25" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_sn_customCar3_1000" route="route_sn" begin="1000" end="2000" vehsPerHour="25" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_nw_customCar3_1000" route="route_nw" begin="1000" end="2000" vehsPerHour="25" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_se_customCar3_1000" route="route_se" begin="1000" end="2000" vehsPerHour="25" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_ne_customCar3_1000" route="route_ne" begin="1000" end="2000" vehsPerHour="12" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_sw_customCar3_1000" route="route_sw" begin="1000" end="2000" vehsPerHour="12" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_we_customCar3_1000" route="route_we" begin="1000" end="2000" vehsPerHour="125" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_ws_customCar3_1000" route="route_ws" begin="1000" end="2000" vehsPerHour="125" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_ew_customCar3_1000" route="route_ew" begin="1000" end="2000" vehsPerHour="125" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_en_customCar3_1000" route="route_en" begin="1000" end="2000" vehsPerHour="125" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_wn_customCar3_1000" route="route_wn" begin="1000" end="2000" vehsPerHour="62" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_es_customCar3_1000" route="route_es" begin="1000" end="2000" vehsPerHour="62" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_ns_customCar4_1000" route="route_ns" begin="1000" end="2000" vehsPerHour="25" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_sn_customCar4_1000" route="route_sn" begin="1000" end="2000" vehsPerHour="25" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_nw_customCar4_1000" route="route_nw" begin="1000" end="2000" vehsPerHour="25" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_se_customCar4_1000" route="route_se" begin="1000" end="2000" vehsPerHour="25" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_ne_customCar4_1000" route="route_ne" begin="1000" end="2000" vehsPerHour="12" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_sw_customCar4_1000" route="route_sw" begin="1000" end="2000" vehsPerHour="12" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_we_customCar4_1000" route="route_we" begin="1000" end="2000" vehsPerHour="125" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_ws_customCar4_1000" route="route_ws" begin="1000" end="2000" vehsPerHour="125" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_ew_customCar4_1000" route="route_ew" begin="1000" end="2000" vehsPerHour="125" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_en_customCar4_1000" route="route_en" begin="1000" end="2000" vehsPerHour="125" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_wn_customCar4_1000" route="route_wn" begin="1000" end="2000" vehsPerHour="62" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_es_customCar4_1000" route="route_es" begin="1000" end="2000" vehsPerHour="62" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_ns_customCar1_2000" route="route_ns" begin="2000" end="3000" vehsPerHour="275" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_sn_customCar1_2000" route="route_sn" begin="2000" end="3000" vehsPerHour="275" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_nw_customCar1_2000" route="route_nw" begin="2000" end="3000" vehsPerHour="275" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_se_customCar1_2000" route="route_se" begin="2000" end="3000" vehsPerHour="275" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_ne_customCar1_2000" route="route_ne" begin="2000" end="3000" vehsPerHour="137" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_sw_customCar1_2000" route="route_sw" begin="2000" end="3000" vehsPerHour="137" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_we_customCar1_2000" route="route_we" begin="2000" end="3000" vehsPerHour="55" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_ws_customCar1_2000" route="route_ws" begin="2000" end="3000" vehsPerHour="55" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_ew_customCar1_2000" route="route_ew" begin="2000" end="3000" vehsPerHour="55" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_en_customCar1_2000" route="route_en" begin="2000" end="3000" vehsPerHour="55" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_wn_customCar1_2000" route="route_wn" begin="2000" end="3000" vehsPerHour="27" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_es_customCar1_2000" route="route_es" begin="2000" end="3000" vehsPerHour="27" departSpeed="max" departPos="base" departLane="best" type="customCar1"/>
+  <flow id="flow_ns_customCar2_3000" route="route_ns" begin="3000" end="4000" vehsPerHour="15" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_sn_customCar2_3000" route="route_sn" begin="3000" end="4000" vehsPerHour="15" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_nw_customCar2_3000" route="route_nw" begin="3000" end="4000" vehsPerHour="15" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_se_customCar2_3000" route="route_se" begin="3000" end="4000" vehsPerHour="15" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_ne_customCar2_3000" route="route_ne" begin="3000" end="4000" vehsPerHour="7" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_sw_customCar2_3000" route="route_sw" begin="3000" end="4000" vehsPerHour="7" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_we_customCar2_3000" route="route_we" begin="3000" end="4000" vehsPerHour="75" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_ws_customCar2_3000" route="route_ws" begin="3000" end="4000" vehsPerHour="75" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_ew_customCar2_3000" route="route_ew" begin="3000" end="4000" vehsPerHour="75" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_en_customCar2_3000" route="route_en" begin="3000" end="4000" vehsPerHour="75" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_wn_customCar2_3000" route="route_wn" begin="3000" end="4000" vehsPerHour="37" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_es_customCar2_3000" route="route_es" begin="3000" end="4000" vehsPerHour="37" departSpeed="max" departPos="base" departLane="best" type="customCar2"/>
+  <flow id="flow_ns_customCar3_3000" route="route_ns" begin="3000" end="4000" vehsPerHour="15" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_sn_customCar3_3000" route="route_sn" begin="3000" end="4000" vehsPerHour="15" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_nw_customCar3_3000" route="route_nw" begin="3000" end="4000" vehsPerHour="15" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_se_customCar3_3000" route="route_se" begin="3000" end="4000" vehsPerHour="15" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_ne_customCar3_3000" route="route_ne" begin="3000" end="4000" vehsPerHour="7" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_sw_customCar3_3000" route="route_sw" begin="3000" end="4000" vehsPerHour="7" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_we_customCar3_3000" route="route_we" begin="3000" end="4000" vehsPerHour="75" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_ws_customCar3_3000" route="route_ws" begin="3000" end="4000" vehsPerHour="75" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_ew_customCar3_3000" route="route_ew" begin="3000" end="4000" vehsPerHour="75" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_en_customCar3_3000" route="route_en" begin="3000" end="4000" vehsPerHour="75" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_wn_customCar3_3000" route="route_wn" begin="3000" end="4000" vehsPerHour="37" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_es_customCar3_3000" route="route_es" begin="3000" end="4000" vehsPerHour="37" departSpeed="max" departPos="base" departLane="best" type="customCar3"/>
+  <flow id="flow_ns_customCar4_3000" route="route_ns" begin="3000" end="4000" vehsPerHour="35" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_sn_customCar4_3000" route="route_sn" begin="3000" end="4000" vehsPerHour="35" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_nw_customCar4_3000" route="route_nw" begin="3000" end="4000" vehsPerHour="35" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_se_customCar4_3000" route="route_se" begin="3000" end="4000" vehsPerHour="35" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_ne_customCar4_3000" route="route_ne" begin="3000" end="4000" vehsPerHour="17" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_sw_customCar4_3000" route="route_sw" begin="3000" end="4000" vehsPerHour="17" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_we_customCar4_3000" route="route_we" begin="3000" end="4000" vehsPerHour="175" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_ws_customCar4_3000" route="route_ws" begin="3000" end="4000" vehsPerHour="175" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_ew_customCar4_3000" route="route_ew" begin="3000" end="4000" vehsPerHour="175" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_en_customCar4_3000" route="route_en" begin="3000" end="4000" vehsPerHour="175" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_wn_customCar4_3000" route="route_wn" begin="3000" end="4000" vehsPerHour="87" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+  <flow id="flow_es_customCar4_3000" route="route_es" begin="3000" end="4000" vehsPerHour="87" departSpeed="max" departPos="base" departLane="best" type="customCar4"/>
+</routes>

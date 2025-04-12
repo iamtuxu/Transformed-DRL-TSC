@@ -1,0 +1,5 @@
+Optimized parameters for cluster 3:
+v0: 10.599589784347359
+d_min: 4.257906542136694
+T: 0.3
+Total mean squared error for cluster 3: 184.70724900264955
